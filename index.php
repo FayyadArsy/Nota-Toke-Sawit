@@ -14,7 +14,7 @@ $today2= date('y-m-d', strtotime("-$halamanaktif day"));
  	$mhs = query("SELECT * FROM transaksi WHERE tanggal between '$today2' and '$today 23:59:59' ORDER BY id DESC"); 
 
 	
-//tombol cari ditekana
+//tombol cari ditekan
 if (isset($_POST["cari"])) {
 	$mhs = cari($_POST["keyword"]);
 }
