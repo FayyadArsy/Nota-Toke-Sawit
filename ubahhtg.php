@@ -65,7 +65,7 @@ if( isset($_POST["submit"])) {
 	<div style="margin-top: 5px">
 		<input type="hidden" name="id" value="<?= $user["id_pelanggan"]; ?>">
 				<input type="text" name="nama" id="nama" value="<?php echo $user["nama"]; ?>" class="panjang" autocomplete="off" readonly>
-     &nbsp&nbsp <input type="number" name="potongan" id="potongan" placeholder="Potongan" class="panjang" autocomplete="off" value="0" > 
+     &nbsp&nbsp <input type="number" name="potongan" id="potongan" placeholder="Potongan" class="panjang" autocomplete="off"  > 
 
 		<!-- <div>
 	<span style="display:inline-block; width: 270;"></span>	
@@ -78,7 +78,7 @@ if( isset($_POST["submit"])) {
 	
 
 <div style="margin-top: 5px">
-		<input type="number" name="tonase" id="tonase" placeholder="Berat" class="panjang" autocomplete="off" required >
+		<input type="number" name="tonase" id="tonase" placeholder="Tonase" class="panjang" autocomplete="off" required >
 		&nbsp&nbsp&nbsp&nbspSisa Bon &nbsp&nbsp<?php echo "Rp. ".number_format($user["hutang"], 0, ".", "."); ?>
 		<div style="margin-top: 5px" >
 			
@@ -202,9 +202,9 @@ if( isset($_POST["submit"])) {
 
 </div>
 <div class="b">
-	<h3 style="text-align: center;">Yth. Bpk/i <?php echo $row["nama"]; ?></h3>
+	<h3 style="text-align: center;">Yth. Bpk/ibu <?php echo $row["nama"]; ?></h3>
 	<!-- <p> &nbsp&nbsp&nbsp&nbsp<?php echo $row["tonase"]; ?> * <?php echo $row["harga"]; ?></td></p> -->
-	<p style="text-align: left;"><?php echo $row["tonase"]; ?> * <?php echo $row["harga"]; ?><span style="float:right;"><?php $bayar_rp = $row["bayar"]; 
+	<p style="text-align: left;"><?php echo $row["tonase"]; ?> X <?php echo $row["harga"]; ?><span style="float:right;"><?php $bayar_rp = $row["bayar"]; 
 					echo "Rp. ".number_format($bayar_rp, 0, ".", "."); ?></span></p>
 	<p style="text-align: left;">Potongan <span style="float:right;"><?php $bayar_rp = $row["potongan"]; 
 					echo "Rp. ".number_format($bayar_rp, 0, ".", "."); ?></span></p>

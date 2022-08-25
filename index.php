@@ -8,11 +8,12 @@ if(!isset($_SESSION["login"])){
 require 'functions.php';
 include 'style.css';
 $jumlahhalaman = 7;
-$today= date('y-m-d');
+// $today= date('y-m-d');
+// $today2= date('y-m-d', strtotime("-$halamanaktif day"));
 $halamanaktif = (isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
-$today2= date('y-m-d', strtotime("-$halamanaktif day"));
- 	$mhs = query("SELECT * FROM transaksi WHERE tanggal between '$today2' and '$today 23:59:59' ORDER BY id DESC"); 
 
+ 	$mhs = query("SELECT * FROM transaksi WHERE date(tanggal) = CURDATE()-$halamanaktif+1 ORDER BY id DESC"); 
+	$tot = query("SELECT sum(tonase) as total from transaksi where date(tanggal) = CURDATE()-$halamanaktif+1;");
 	
 //tombol cari ditekan
 if (isset($_POST["cari"])) {
@@ -45,9 +46,9 @@ if (isset($_POST["cari"])) {
 
 
 
-<br><br>
 
-<div id="utama_index">
+
+<div id="utama_index" class="a">
 	<div id="judul">
 		Daftar Transaksi
 	</div>
@@ -65,6 +66,8 @@ if (isset($_POST["cari"])) {
 <div>
 	<button> <a href="tambah.php">Tambah Transaksi</a></button>
 	<button> <a href="hutang.php">Daftar Bon</a></button>
+	<br><br>
+	<a href="" title="Print Page" onclick="myFunction()"><img src="gambar/print2.png" height="30px"  /></a>
 </div>
 
 <!-- navigasi -->
@@ -99,7 +102,7 @@ if (isset($_POST["cari"])) {
  		<th>Total</th>
  		<th>Potongan</th>
  		<th>Bayar</th>
- 		<th>Tanggal</th>
+ 		<th>Jam</th>
  		
  	</tr>
 
@@ -118,7 +121,7 @@ if (isset($_POST["cari"])) {
 		<td><?php echo $row["bayar"]; ?></td>
 		<td><?php echo $row["potongan"]; ?></td>
 		<td><?php echo $row["bayar"] - $row["potongan"]; ?></td>
-		<td><?php echo $row["tanggal"]; ?></td>
+		<td><?php echo date('H:i:s', strtotime($row["tanggal"])); ?></td>
 	</tr>
 	<?php $i++; ?>
 	<?php endforeach; ?>
@@ -126,5 +129,41 @@ if (isset($_POST["cari"])) {
 			&copy; 2020 Copyright
 		</div> -->
  </table>
+</div>
+</div>
+
+ <div id="kalimat" align="center">
+<h1>Data Hari Ini</h1>
+<h2><?php echo date('F'),'&nbsp',date('d')-$halamanaktif+1?></h2>
+<p>KM 6 No 32. Jl. Lintas Bangko Sungai Manau</p>
+<p>===============================</p>
+</div>
+<div id="kalimat" align="left">
+<?php $i =1; ?>
+<table border="1", cellspacing="0" align="center">
+ 	<tr>
+ 		<th>No</th>
+ 		<th>Nama</th>
+ 		<th>Tonase</th>
+ 		<th>Harga</th>
+ 		<th>Bayar</th>
+ 		
+ 	</tr>
+<?php foreach( $mhs as $row) : ?>
+
+	<tr>
+		<td><?= $i; ?></td>
+	
+		
+		<td><?php echo $row["nama"]; ?></td>
+		<td><?php echo $row["tonase"]; ?></td>
+		<td><?php echo $row["harga"]; ?></td>
+		<td><?php echo $row["bayar"]; ?></td>
+		
+	</tr>
+	<?php $i++; ?>
+	<?php endforeach; ?>
+	<h3>Total Tonase Hari ini: <?php echo $tot[0]['total']?></h3>
+	</div>
  </body>
  </html>

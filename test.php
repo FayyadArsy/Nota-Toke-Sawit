@@ -1,26 +1,20 @@
 <?php
-$arr = array(3, 2, 1, 2, 9, 2, 1, 2, 2);
+$conn = mysqli_connect("localhost","root","","rumah");
 
-$string = "Whr dd th bg Elphnt gs?";
+$id=1;
+$potongan=1;
+$tanggal = date("Y-m-d H:i:s", strtotime("+5 hours"));
+$sql_potongan = "SELECT * FROM hutang WHERE id = '$id'";
+	
+	$data = mysqli_fetch_assoc(mysqli_query($conn, $sql_potongan));
+	$stok = htmlspecialchars($data["hutang"]);
 
+	$total_stok = $stok - $potongan;
+	$sql_pemotong = "UPDATE hutang SET 
+	hutang ='$total_stok',
+	tanggal = '$tanggal' WHERE id = '$id'";
+	mysqli_query($conn, $sql_pemotong);
+	return mysqli_affected_rows($conn);
 
-
-
-
-  
-$a = (substr_count($string, 'a') + 
-    substr_count($string, 'i') +
-    substr_count($string, 'u') + 
-    substr_count($string, 'e') +
-    substr_count($string, 'o') 
-);
-$today= date('y-m-d');
-$today2= date('y-m-d', strtotime("-1 day"));
-var_dump($today);
-
-
-
-
-
-
+var_dump($sql_potongan);
 ?>

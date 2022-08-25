@@ -127,13 +127,10 @@ function ubahhtg($data) {
 				";
 	mysqli_query($conn, $query);
 
-
-	
 	$sql_potongan = "SELECT * FROM hutang WHERE id = '$id'";
-	
+	$potongan = empty($potongan) ? 0 : $potongan;
 	$data = mysqli_fetch_assoc(mysqli_query($conn, $sql_potongan));
-	$stok = $data["hutang"];
-
+	$stok = htmlspecialchars($data["hutang"]);
 	$total_stok = $stok - $potongan;
 	$sql_pemotong = "UPDATE hutang SET 
 	hutang ='$total_stok',

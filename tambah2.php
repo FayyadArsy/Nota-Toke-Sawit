@@ -10,7 +10,7 @@ require 'style.css';
 
 $mhs = query("SELECT * FROM   transaksi
 ORDER BY id
-DESC LIMIT 1 ");
+DESC LIMIT 2 ");
 //cek apakah tombol submit sudah ditekan atau belum
 if( isset($_POST["submit"])) {
 	
@@ -95,8 +95,7 @@ DESC LIMIT 2 ");
 	<button type="submit" name="submit">Kirim</button> 
 	<!-- <button type="submit" name="cek">Cek</button>  -->
 	<form action="" method="post">
-
-	<button><a href="tambah2.php">< + ></a></button>
+	<button type="submit" name="cari2">< + ></button> 
 	</form>
 
 
@@ -170,20 +169,25 @@ DESC LIMIT 2 ");
 </table>
 </div>
 <div class="b">
-<h3 style="text-align: center;">Yth. Bpk/ibu <?php echo $row["nama"]; ?></h3>
+	<h3 style="text-align: center;">Yth. Bpk/ibu <?php echo $row["nama"]; ?></h3>
+	<?php foreach( $mhs as $row) :  ?>
 	
 	<!-- <p> &nbsp&nbsp&nbsp&nbsp<?php echo $row["tonase"]; ?> * <?php echo $row["harga"]; ?></td></p> -->
 	<p style="text-align: left;"><?php echo $row["tonase"]; ?> X <?php echo $row["harga"]; ?><span style="float:right;"><?php $bayar_rp = $row["bayar"]; 
 					echo "Rp. ".number_format($bayar_rp, 0, ".", "."); ?></span></p>
-	<p style="text-align: left;">Potongan <span style="float:right;"><?php $bayar_rp = $row["potongan"]; 
-					echo "Rp. ".number_format($bayar_rp, 0, ".", "."); ?></span></p>
-	<p style="text-align: left;">Total <span style="float:right;"><?php $total_rp = $row["bayar"] - $row["potongan"];  
-			echo "Rp. ".number_format($total_rp, 0, ".", "."); ?></span></p>
+	<!-- <p style="text-align: left;">Potongan <span style="float:right;"><?php $bayar_rp = $row["potongan"]; 
+					echo "Rp. ".number_format($bayar_rp, 0, ".", "."); ?></span></p> -->
+	<!-- <p style="text-align: left;">Total <span style="float:right;"><?php $total_rp = $row["bayar"] - $row["potongan"];  
+			echo "Rp. ".number_format($total_rp, 0, ".", "."); ?></span></p> -->
 	<!-- <div id="printlogo"><img src="gambar/logo2.jpg" height="70"></div> -->
-	<p style="text-align: center;">========|| NoNota <?php echo $row["id"]; ?> ||=======</p>
-	<p>=========<?php echo date('d-m-Y H:i', strtotime($row["tanggal"])) ?>
-		     ========</p>
+	<?php endforeach; ?>
+	<?php var_dump($mhs["bayar"]) ?>
+	<p style="text-align: left;">Total <span style="float:right;"><?php $total_rp = array_sum($mhs["bayar"]);  
+	echo "Rp. ".number_format($total_rp, 0, ".", ".");?>
 
+	<p style="text-align: center;">========|| NoNota <?php echo $row["id"]+1; ?> ||=======</p>
+	<p>=========<?php echo date('d-m-Y H:i', strtotime($row["tanggal"])) ?>
+	========</p>
 </div>
 </body>
 </html>

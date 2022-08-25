@@ -15,6 +15,8 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
 	//cek cookie dan username
 	if ($key === hash('sha256', $row['username'])) {
 		$_SESSION['login'] = true;
+		
+		
 	}
 	}
 

@@ -15,6 +15,7 @@
 			height: auto;
 			margin: 0 auto;
 			margin-top: 2%;
+			
 		}
 		#utama_ubah{
 			width: 400px;
@@ -23,7 +24,7 @@
 		}
 		#utama_index{
 			width: 850px;
-			
+			height: auto;
 			margin: 0 auto;
 			margin-top: 2%;
 		}
